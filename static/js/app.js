@@ -1,6 +1,7 @@
+// Define a variable to hold the json URL
 const url = "https://2u-data-curriculum-team.s3.amazonaws.com/dataviz-classroom/v1.1/14-Interactive-Web-Visualizations/02-Homework/samples.json"
 
-
+// Initialize the page with a dropdown menu of all Test Subject IDs and default charts from the first Test Subject ID
 function init() {
     let dropDown = d3.select("#selDataset");
     d3.json(url).then((jsonData) => {
@@ -14,9 +15,11 @@ function init() {
     });
 }
 
-
+// Functions for building charts for each Test Subject ID
 function buildCharts(sample) {
+    // Reads data from URL
     d3.json(url).then(function (jsonData) {
+        // Defines variables for charts
         let samples = jsonData.samples;
         let sampleInfo = samples.filter(row => row.id == sample);
         let sampleValues = sampleInfo[0].sample_values;
@@ -68,7 +71,7 @@ function buildCharts(sample) {
     });
 };
 
-
+// Function for building metadata table for each Test Subject ID
 function buildMetadata(sample) {
     let Meta = d3.select("#sample-metadata");
     Meta.html("");
@@ -83,11 +86,11 @@ function buildMetadata(sample) {
     });
 };
 
-
+// Function for updating the charts and table when a new sample is selected
 function optionChanged(sample) {
     buildMetadata(sample);
     buildCharts(sample);
 };
 
-
+// Display default charts and table
 init();
